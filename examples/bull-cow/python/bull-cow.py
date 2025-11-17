@@ -33,7 +33,7 @@ def match(userinput: str, com: list) -> (int, int):
 
 def main():
     com = gen_number()
-    for i in range(10):
+    for i in range(1, 11):
         print(f"Round {i}:  Enter your guess: ", end="")
         userinput = input().strip()
 
