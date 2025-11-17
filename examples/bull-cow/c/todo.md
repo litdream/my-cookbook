@@ -2,7 +2,8 @@
 
 1. finish validate() function
 
-2. BUG!
+2. (DONE) BUG
+check-in #2:  Perenthesis!!
 
 ```
 [rchung@arch-dell14 c]$ ./a.out

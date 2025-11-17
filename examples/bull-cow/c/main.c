@@ -57,8 +57,8 @@ struct result match(const char *userinput, const int *com) {
 	}
 
 	for (int i=0; i <3; ++i) {
-		if (guess[i] == com[ i+1 %3] ||
-		    guess[i] == com[ i+2 %3] ) {
+		if (guess[i] == com[ (i+1) %3] ||
+		    guess[i] == com[ (i+2) %3] ) {
 			res.cows++;
 		}
 	}
