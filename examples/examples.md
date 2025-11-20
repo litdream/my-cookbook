@@ -1,6 +1,30 @@
 # Example collection
 
+Usually, 'prototype/' directory contains code written by AI.
+- AI := ChatGPT, Gemini, Claude, etc...
+
+
 ## Hello World
 
 Always the first.  [hello](hello/hello.md)
 
+
+## Bulls/Cows number guessing game.
+
+Number Guessing game, useful for brain puzzle.  [bull-cow](bull-cow/bull-cow.md)
+
+
+## Word Jumble game
+
+Simple word game.  [word-jumble]()
+For now, I only have prototype written by Gemini.
+
+
+## Hangman
+
+Another traditional word game. [hangman]()
+
+
+## Battleship
+
+Challenging Battleship game.  [battleship]()
