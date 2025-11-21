@@ -12,7 +12,10 @@ Always the first.  [hello](hello/hello.md)
 ## Bulls/Cows number guessing game.
 
 Number Guessing game, useful for brain puzzle.  [bull-cow](bull-cow/bull-cow.md)
-
+  - python
+  - rust
+  - c
+  - cpp
 
 ## Word Jumble game
 
@@ -28,3 +31,9 @@ Another traditional word game. [hangman]()
 ## Battleship
 
 Challenging Battleship game.  [battleship]()
+
+
+## HTTPS connection simulation
+
+Use only socket and crypto [https-handshake](https-handshake/https-handshake.md)
+
