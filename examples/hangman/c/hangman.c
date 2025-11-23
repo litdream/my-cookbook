@@ -1,39 +1,5 @@
-/**  Good Sample Output:  from Gemini's prototype
- *
+#include "hangman.h"
 
-=== HANGMAN ===
-Guess the word one letter at a time.
-Type 'hint' for a definition, 'quit' to exit.
-
-
-     +---+
-         |
-         |
-         |
-       ===
-
-Word: _ _ _ _ _ _ 
-Guessed letters: 
-
-Your guess: 
- 
-
-**/
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_WORD_LEN 50
-#define MAX_HINT_LEN 100
-#define NUM_WORDS 10
-
-typedef struct {
-    char word[MAX_WORD_LEN];
-    char hint[MAX_HINT_LEN];
-} WordHint;
-
-// Words + definitions (optional hint)
 WordHint words[NUM_WORDS] = {
     {"python", "A programming language known for its readability."},
     {"gravity", "A natural force that pulls objects toward each other."},
@@ -98,31 +64,3 @@ const char *hangman_pics[] = {
     "    / \\  |\n"
     "       ==="
 };
-
-typedef struct {
-	WordHint *selected;
-	char *word;
-	char guessed_letters[26];
-	int  len_guessed;
-	int  wrong_count;
-} GameState;
-
-void display_state(GameState *game) {
-
-
-}
-
-int main() {
-	printf(" == HANGMAN Game ==\n");
-
-	struct GameState game;
-	memset(&game, '\0', sizeof(GameState));
-	
-	// select a random word from words
-	int index = rand() % NUM_WORDS;
-
-	// INIT (GameState)game
-	
-
-	return 0;
-}

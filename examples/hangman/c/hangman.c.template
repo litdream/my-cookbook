@@ -1,3 +1,25 @@
+/**  Good Sample Output:  from Gemini's prototype
+ *
+
+=== HANGMAN ===
+Guess the word one letter at a time.
+Type 'hint' for a definition, 'quit' to exit.
+
+
+     +---+
+         |
+         |
+         |
+       ===
+
+Word: _ _ _ _ _ _ 
+Guessed letters: 
+
+Your guess: 
+ 
+
+**/
+
 #define MAX_WORD_LEN 50
 #define MAX_HINT_LEN 100
 #define NUM_WORDS 10
