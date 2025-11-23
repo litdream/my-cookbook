@@ -156,7 +156,6 @@ bool char_already_guessed(GameState *state, char chk) {
 
 bool all_guessed(GameState *state) {
 	char *secret = state->secret;
-	char *guessed = state->guessed;
 	for (int i=0; i< state->len_secret; ++i) 
 		if ( ! char_already_guessed(state, secret[i]))
 			return false;

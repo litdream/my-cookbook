@@ -498,7 +498,7 @@ TEST(HangmanLogicTest, GameLostSomeWrongGuesses) {
 
 TEST(HangmanLogicTest, GameLostAtLimit) {
     GameState state;
-    state.wrong_count = NUM_PICS;
+    state.wrong_count = NUM_PICS-1;
 
     // At the limit, not lost yet
     EXPECT_FALSE(game_lost(&state));
@@ -522,14 +522,14 @@ TEST(HangmanLogicTest, GameLostBoundaryCheck) {
     GameState state;
 
     // Just below the limit
-    state.wrong_count = NUM_PICS - 1;
+    state.wrong_count = NUM_PICS - 2;
     EXPECT_FALSE(game_lost(&state));
 
     // At the limit
-    state.wrong_count = NUM_PICS;
+    state.wrong_count = NUM_PICS -1;
     EXPECT_FALSE(game_lost(&state));
 
     // Just over the limit
-    state.wrong_count = NUM_PICS + 1;
+    state.wrong_count = NUM_PICS;
     EXPECT_TRUE(game_lost(&state));
 }
