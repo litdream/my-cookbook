@@ -64,3 +64,10 @@ const char *hangman_pics[] = {
     "    / \\  |\n"
     "       ==="
 };
+
+
+int choose_word(WordHint *selected) {
+	int index = rand() % NUM_WORDS;
+	*selected = words[index];
+	return 0;
+}

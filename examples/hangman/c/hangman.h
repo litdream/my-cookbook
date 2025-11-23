@@ -17,18 +17,19 @@ typedef struct {
 	char hint[MAX_HINT_LEN];
 } WordHint;    // Word and Hint
 
-extern WordHint words[NUM_WORDS];  
+extern WordHint words[NUM_WORDS];
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Hangman Functions
-	
+	// Hangman Functions
+	int choose_word(WordHint *selected);
+
 
 
 #ifdef __cplusplus
 }
 #endif
-	
+
 #endif // __HANGMAN_H
