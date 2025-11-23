@@ -108,6 +108,9 @@ int list_guessed_letters(GameState *state, char *letters) {
 	char sorted[NUM_ALPHABET];
 	memset(sorted, '\0', NUM_ALPHABET);
 
+	// Copy guessed letters to sorted array
+	memcpy(sorted, state->guessed, state->guess_count);
+
 	// Bubble Sort.
 	//   - Consider: For efficient Set() operation,
 	//          BST might fit better.
@@ -161,5 +164,5 @@ bool all_guessed(GameState *state) {
 }
 
 bool game_lost(GameState *state) {
-	return state->wrong_count > NUM_PICS;
+	return state->wrong_count >= NUM_PICS;
 }
