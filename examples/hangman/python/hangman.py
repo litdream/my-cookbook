@@ -101,6 +101,7 @@ class Hangman:
         self.secret, self.hint = choose_word()
         self.guessed = []
         self.wrong: int = 0
+        self.hint_used = False
 
     def display_game_state(self):
         print( hangman_pics[self.wrong])
@@ -139,12 +140,20 @@ def main():
             # Handle Ctrl-D
             break
 
-        user_input = user_input.strip()
+        user_input = user_input.strip().lower()
+        if user_input == 'hint':
+            if game.hint_used:
+                print("You already used hint")
+            else:
+                game.hint_used = True
+                print(f"Hint: {game.hint}")
+            continue
+        
         if len(user_input) != 1:
             print("I said: SINGLE CHAR!!")
             continue
 
-        guess = user_input[0].lower()
+        guess = user_input[0]
         if guess in game.guessed:
             print(f"Char({guess}) is already guessed. Try again.")
             continue
@@ -154,7 +163,7 @@ def main():
             game.wrong += 1
 
     if game.win():
-        print("Congratulations!  You won.")
+        print(f"Congratulations!  You won.  It is '{game.secret}'.")
     elif game.lost():
         print(f"Sorry.  The word was: {game.secret}")
     else:
