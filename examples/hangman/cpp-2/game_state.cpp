@@ -5,6 +5,8 @@
 #include <iostream>
 
 using std::cout;
+using std::string;
+using std::vector;
 
 const int NUM_PICS = 7;
 const std::array<const char *, NUM_PICS> hangman_pics = {

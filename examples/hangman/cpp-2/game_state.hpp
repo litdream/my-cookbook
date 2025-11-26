@@ -5,29 +5,26 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::vector;
-
 enum ProcessResult { SUCCESS, DUP_GUESS, NOT_ALPHA };
 
 struct WordHint {
-    string word;
-    string hint;
+    std::string word;
+    std::string hint;
 };
 
 class GameState {
 public:
     GameState();
-    GameState(const string &secret, const string &hint);
+    GameState(const std::string &secret, const std::string &hint);
     bool GameOver();
     bool DidWin();
     void DrawScreen();
     ProcessResult ProcessGuess(char guess);
-    string GetSecret();
+    std::string GetSecret();
 
 private:
-    string secret;
-    string hint;
+    std::string secret;
+    std::string hint;
     std::vector<char> guessed;
     int wrong_count;
     std::mt19937 rng;
