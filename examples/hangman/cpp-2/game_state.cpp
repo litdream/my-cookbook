@@ -128,7 +128,7 @@ ProcessResult GameState::ProcessGuess(char guess) {
         return DUP_GUESS;
     }
 
-    // append guess
+    // append to guessed
     guessed.push_back(guess);
     std::sort(guessed.begin(), guessed.end());
 
