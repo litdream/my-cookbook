@@ -1,5 +1,7 @@
 #include "bullgame.hpp"
 
+using std::vector;
+using std::string;
 
 BullCowGame::BullCowGame(int maxTry) {
     com.clear();

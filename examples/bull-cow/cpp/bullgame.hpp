@@ -7,9 +7,6 @@
 #include <algorithm>
 #include <random>
 
-using std::vector;
-using std::string;
-
 static const int DIGITS = 3;
 
 struct Result {
@@ -22,10 +19,10 @@ struct Result {
 class BullCowGame {
 public:
     BullCowGame(int maxTry=10);
-    Result match(const string& guess) const;
-    string getComNum() const;
+    Result match(const std::string& guess) const;
+    std::string getComNum() const;
 private:
-    vector<int> com;
+    std::vector<int> com;
 };
 
 #endif // BULLGAME_HPP
