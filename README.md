@@ -18,3 +18,7 @@ Easiest way to install google-test:
 
 [fragments](fragments/fragments.md)
 
+## Academic:  Comp-Sci subjects
+
+[comp-sci](comp-sci/comp-sci.md)
+

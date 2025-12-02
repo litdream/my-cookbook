@@ -37,3 +37,8 @@ Challenging Battleship game.  [battleship]()
 
 Use only socket and crypto [https-handshake](https-handshake/https-handshake.md)
 
+
+## Matrix Screensaver
+
+A simulation of the matrix screensaver. [matrix-screensaver](matrix-screensaver/python/README.md)
+
