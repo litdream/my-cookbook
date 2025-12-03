@@ -1,0 +1,134 @@
+#include "llist.hpp"
+#include <limits>
+#include <utility> // For std::move
+
+LList::LList() : head(nullptr), list_size(0) {}
+
+// No destructor needed, std::unique_ptr handles it automatically.
+
+void LList::push(int data) {
+    auto new_node = std::make_unique<Node>(data);
+    new_node->next = std::move(head);
+    head = std::move(new_node);
+    list_size++;
+}
+
+int LList::pop() {
+    if (!head) {
+        throw std::out_of_range("List is empty");
+    }
+    int data = head->data;
+    head = std::move(head->next);
+    list_size--;
+    return data;
+}
+
+void LList::remove(int data) {
+    Node* current = head.get();
+    Node* prev = nullptr;
+
+    while (current != nullptr && current->data != data) {
+        prev = current;
+        current = current->next.get();
+    }
+
+    if (current == nullptr) {
+        return; // Not found
+    }
+
+    // Node to be removed is 'current'
+    if (prev == nullptr) {
+        // It's the head node
+        head = std::move(head->next);
+    } else {
+        // It's a middle or tail node
+        // prev->next is the unique_ptr owning current
+        prev->next = std::move(current->next);
+    }
+    list_size--;
+}
+
+bool LList::search(int data) const {
+    Node* current = head.get();
+    while (current != nullptr) {
+        if (current->data == data) {
+            return true;
+        }
+        current = current->next.get();
+    }
+    return false;
+}
+
+int LList::min() const {
+    if (!head) {
+        throw std::out_of_range("List is empty");
+    }
+    int min_val = std::numeric_limits<int>::max();
+    Node* current = head.get();
+    while (current != nullptr) {
+        if (current->data < min_val) {
+            min_val = current->data;
+        }
+        current = current->next.get();
+    }
+    return min_val;
+}
+
+int LList::max() const {
+    if (!head) {
+        throw std::out_of_range("List is empty");
+    }
+    int max_val = std::numeric_limits<int>::min();
+    Node* current = head.get();
+    while (current != nullptr) {
+        if (current->data > max_val) {
+            max_val = current->data;
+        }
+        current = current->next.get();
+    }
+    return max_val;
+}
+
+void LList::print() const {
+    Node* current = head.get();
+    while (current != nullptr) {
+        std::cout << current->data << " -> ";
+        current = current->next.get();
+    }
+    std::cout << "nullptr" << std::endl;
+}
+
+int LList::size() const {
+    return list_size;
+}
+
+bool LList::isEmpty() const {
+    return list_size == 0;
+}
+
+void LList::add(int data) {
+    auto new_node = std::make_unique<Node>(data);
+    if (!head) {
+        head = std::move(new_node);
+    } else {
+        Node* current = head.get();
+        while (current->next) {
+            current = current->next.get();
+        }
+        current->next = std::move(new_node);
+    }
+    list_size++;
+}
+
+int LList::getAt(int index) const {
+    if (index < 0 || index >= list_size) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    Node* current = head.get();
+    for (int i = 0; i < index; ++i) {
+        current = current->next.get();
+    }
+    return current->data;
+}
+
