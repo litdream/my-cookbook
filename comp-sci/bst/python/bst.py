@@ -1,10 +1,9 @@
-import os
-
 class Node:
     def __init__(self, data):
         self.data = data
         self.left = None
         self.right = None
+
 
 class BST:
     def __init__(self):
@@ -27,22 +26,21 @@ class BST:
             else:
                 self._insert(cur.right, data)
         else:
+            # Same data found. 
+            #   We are making unique tree, so KeyError.
             raise KeyError("Duplicate data exists in BST.")
 
     def exists(self, data) -> bool:
-        return self._exists(self.root, data)
-    def _exists(self, cur, data) -> bool:
+        return self._search(self.root, data)
+    def _search(self, cur, data):
         if cur is None:
             return False
         if cur.data == data:
             return True
         elif data < cur.data:
-            return self._exists(cur.left, data)
+            return self._search(cur.left, data)
         else:
-            return self._exists(cur.right, data)
-
-    def delete(self, data):
-        pass
+            return self._search(cur.right, data)
 
     def minimum(self):
         cur = self.root
@@ -55,7 +53,7 @@ class BST:
         while cur.right is not None:
             cur = cur.right
         return cur.data
-
+        
     def inorder_traverse(self) -> list:
         result = []    # ref will be passed around to collect
         self._inorder(self.root, result)
@@ -97,5 +95,32 @@ class BST:
 
     def size(self):
         return len(self.inorder_traverse())
-    
-        
+
+    def delete(self, data):
+        self.root = self._delete(self.root, data)
+    def _delete(self, node, data):
+        if node is None:
+            return None
+
+        if data < node.data:
+            node.left = self._delete(node.left, data)
+        elif data > node.data:
+            node.right = self._delete(node.right, data)
+        else:
+            # Node with only one child or no child
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+
+            # Node with two children: get inorder successor (smallest in right subtree)
+            min_larger_node = self._get_min_node(node.right)
+            node.data = min_larger_node.data
+            node.right = self._delete(node.right, min_larger_node.data)
+        return node
+
+    def _get_min_node(self, node):
+        current = node
+        while current.left:
+            current = current.left
+        return current
