@@ -9,3 +9,5 @@ A collection of notes and implementations of various computer science topics.
 *   [Linked List](./linkedlist/)
 *   [Red-Black Tree](rbtree.md)
 *   [Ring Buffer](ringbuf)
+*   [Binary Search Tree)(bst)
+
