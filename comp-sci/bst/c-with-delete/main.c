@@ -14,11 +14,10 @@ void print_tree_structure(BSTNode *root, int level) {
     if (root == NULL)
         return;
 
+    print_tree_structure(root->right, level + 1);
     for (int i = 0; i < level; i++)
         printf("    ");
     printf("%d\n", root->data);
-
-    print_tree_structure(root->right, level + 1);
     print_tree_structure(root->left, level + 1);
     
 }
