@@ -13,7 +13,7 @@ def main():
 
     print("Extracting elements:")
     while heap.size() > 0:
-        print(heap.extract_max())
+        print(heap.extract())
 
 if __name__ == "__main__":
     main()
