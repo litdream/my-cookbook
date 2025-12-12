@@ -1,0 +1,72 @@
+class HashTable:
+    def __init__(self, capacity=10):
+        # 1. Initialize the array (the "buckets")
+        self.capacity = capacity
+        # Create a list of 'capacity' empty lists (the chains)
+        self.buckets = [[] for _ in range(self.capacity)]
+
+    # --- Core Method 1: The Hash Function ---
+    def _hash(self, key):
+        """
+        Converts the key into an index within the capacity of the table.
+        We use Python's built-in hash() and the modulo operator.
+        """
+        return hash(key) % self.capacity
+
+    # --- Core Method 2: Insert/Update (put) ---
+    def put(self, key, value):
+        index = self._hash(key)
+        chain = self.buckets[index]
+
+        # 1. Check for updates (collision resolution lookup)
+        # Iterate through the (key, value) pairs in the chain
+        for i, (existing_key, _) in enumerate(chain):
+            if existing_key == key:
+                # Key already exists: Update the value and return
+                chain[i] = (key, value)
+                return
+
+        # 2. Key does not exist: Append the new (key, value) pair to the chain
+        chain.append((key, value))
+
+    # --- Core Method 3: Retrieve (get) ---
+    def get(self, key):
+        index = self._hash(key)
+        chain = self.buckets[index]
+
+        # Iterate through the chain to find the key
+        for existing_key, value in chain:
+            if existing_key == key:
+                return value
+
+        # Key not found
+        raise KeyError(f"Key not found: {key}")
+
+    # --- Core Method 4: Delete (delete) ---
+    def delete(self, key):
+        index = self._hash(key)
+        chain = self.buckets[index]
+
+        # Find the position of the key in the chain
+        for i, (existing_key, _) in enumerate(chain):
+            if existing_key == key:
+                # Remove the key-value pair at index 'i' in the chain
+                del chain[i]
+                return
+
+        # Key not found
+        raise KeyError(f"Key not found: {key}")
+
+    # Optional: Enable dictionary-like syntax (syntactic sugar)
+    def __setitem__(self, key, value):
+        self.put(key, value)
+
+    def __getitem__(self, key):
+        return self.get(key)
+
+    def __str__(self):
+        # Nicely print the current state of the buckets
+        items = []
+        for chain in self.buckets:
+            items.extend(chain)
+        return str(items)
