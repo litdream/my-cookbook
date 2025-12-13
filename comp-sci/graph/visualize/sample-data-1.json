@@ -1,0 +1,24 @@
+{
+  "graph_name": "Seven Node Test Graph",
+  "directed": false,
+  "nodes": [
+    {"id": "N1", "label": "Start"},
+    {"id": "N2"},
+    {"id": "N3"},
+    {"id": "N4"},
+    {"id": "N5"},
+    {"id": "N6"},
+    {"id": "N7", "label": "End"}
+  ],
+  "edges": [
+    {"source": "N1", "target": "N2", "weight": 2},
+    {"source": "N1", "target": "N3", "weight": 4},
+    {"source": "N2", "target": "N4", "weight": 6},
+    {"source": "N3", "target": "N4", "weight": 1},
+    {"source": "N3", "target": "N5", "weight": 8},
+    {"source": "N4", "target": "N6", "weight": 5},
+    {"source": "N5", "target": "N6", "weight": 3},
+    {"source": "N5", "target": "N7", "weight": 9},
+    {"source": "N6", "target": "N7", "weight": 7}
+  ]
+}
