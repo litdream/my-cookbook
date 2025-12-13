@@ -1,0 +1,103 @@
+# Constants for our simplified fast hash
+# These are just large prime-like numbers for good diffusion
+PRIME1 = 0x9E3779B1  # A common constant in hashing (related to the golden ratio)
+PRIME2 = 0x85EBCA77
+PRIME3 = 0xC2B2AE3D
+PRIME4 = 0x27D4EB2D
+
+def pseudo_xxhash(data: str, seed: int = 0) -> int:
+    """
+    A simplified fast hash based on the principles of xxHash (Multiplication, Shift, XOR).
+    Processes string data in 4-byte chunks.
+    """
+    # Convert the string to bytes for easier 4-byte chunking
+    byte_data = data.encode('utf-8')
+    data_len = len(byte_data)
+    
+    # Use the initial seed (often 0, but can be anything)
+    h = seed + PRIME1 
+    
+    # ----------------------------------------------------
+    # Stage 1: Block Processing (The Main Loop)
+    # Process 4 bytes at a time (like how xxHash processes 4 or 8 bytes)
+    # ----------------------------------------------------
+    block_size = 4
+    num_blocks = data_len // block_size
+    
+    for i in range(num_blocks):
+        offset = i * block_size
+        
+        # 1. Read the 4-byte integer chunk
+        # Python's int.from_bytes handles endianness
+        chunk = int.from_bytes(byte_data[offset:offset + block_size], 'little')
+        
+        # 2. Key Step: Multiplication, Rotation/Shift, and XOR
+        # This is where the bits are aggressively scrambled (the "Avalanche Effect")
+        
+        # Multiply the chunk by a prime
+        chunk = (chunk * PRIME2) & 0xFFFFFFFF
+        
+        # XOR the chunk with the current hash value 'h'
+        h = h ^ chunk
+        
+        # Rotate/Shift: Shift left (<<) and rotate right (>>> in other languages) 
+        # Since Python lacks a built-in rotation operator, we'll use a simple shift:
+        h = (h << 13) & 0xFFFFFFFF
+        
+        # Final block combination:
+        h = (h * PRIME1) & 0xFFFFFFFF
+        
+    # ----------------------------------------------------
+    # Stage 2: Final Mixer (Handling Remaining Bytes and Finalization)
+    # ----------------------------------------------------
+    
+    # Initialize the hash with the total length
+    h = h + data_len
+    
+    # Process the remaining bytes (0 to 3 bytes)
+    remaining_bytes = byte_data[num_blocks * block_size:]
+    
+    for byte in remaining_bytes:
+        # Mix the remaining byte in: XOR, then multiply by a prime
+        h = h ^ byte
+        h = (h * PRIME4) & 0xFFFFFFFF
+        h = (h << 7) & 0xFFFFFFFF # Another simple shift/rotation
+        
+    # Finalization: A complex sequence of shifts and XORs to maximize diffusion
+    # This step is often the most critical for high-quality distribution.
+    h = h ^ (h >> 16)
+    h = (h * PRIME3) & 0xFFFFFFFF
+    h = h ^ (h >> 13)
+    h = (h * PRIME1) & 0xFFFFFFFF
+    h = h ^ (h >> 16)
+    
+    return h
+
+# Ensure results are positive integers within 32 bits for consistency
+def final_hash_value(result):
+    return result & 0xFFFFFFFF
+    
+
+# Test
+def main():
+    key1 = "This is a test string."
+    key2 = "This is a tesT string."  # Single character changed (t -> T)
+    key3 = "This is a test string"   # Single character removed
+
+    hash1 = final_hash_value(pseudo_xxhash(key1))
+    hash2 = final_hash_value(pseudo_xxhash(key2))
+    hash3 = final_hash_value(pseudo_xxhash(key3))
+
+    print(f"Key 1: {key1}")
+    print(f"Hash 1: {hash1:08X} (Decimal: {hash1})")
+
+    print(f"\nKey 2: {key2}")
+    print(f"Hash 2: {hash2:08X} (Decimal: {hash2})") # Should be vastly different
+
+    print(f"\nKey 3: {key3}")
+    print(f"Hash 3: {hash3:08X} (Decimal: {hash3})") # Should also be vastly different
+
+
+if __name__ == '__main__':
+    main()
+    
