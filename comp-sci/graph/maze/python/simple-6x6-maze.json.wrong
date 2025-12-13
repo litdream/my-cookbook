@@ -1,0 +1,65 @@
+{
+  "graph_name": "6x6 Explicit Maze Graph",
+  "directed": false,
+  "size": "6x6",
+  "start_node": "0_0",
+  "end_node": "5_5",
+  "nodes": [
+    // R0
+    {"id": "0_0", "type": "start"}, {"id": "0_1"}, {"id": "0_2"}, {"id": "0_3"}, {"id": "0_4"}, {"id": "0_5"},
+    // R1
+    {"id": "1_0"}, {"id": "1_1"}, {"id": "1_2"}, {"id": "1_3"}, {"id": "1_4"}, {"id": "1_5"},
+    // R2
+    {"id": "2_0"}, {"id": "2_1"}, {"id": "2_2"}, {"id": "2_3"}, {"id": "2_4"}, {"id": "2_5"},
+    // R3
+    {"id": "3_0"}, {"id": "3_1"}, {"id": "3_2"}, {"id": "3_3"}, {"id": "3_4"}, {"id": "3_5"},
+    // R4
+    {"id": "4_0"}, {"id": "4_1"}, {"id": "4_2"}, {"id": "4_3"}, {"id": "4_4"}, {"id": "4_5"},
+    // R5
+    {"id": "5_0"}, {"id": "5_1"}, {"id": "5_2"}, {"id": "5_3"}, {"id": "5_4"}, {"id": "5_5", "type": "end"}
+  ],
+  "edges": [
+    // R0 Edges
+    {"source": "0_0", "target": "0_1", "weight": 1}, {"source": "0_1", "target": "0_2", "weight": 1},
+    {"source": "0_2", "target": "0_3", "weight": 1}, {"source": "0_3", "target": "0_4", "weight": 1},
+    {"source": "0_4", "target": "1_4", "weight": 1}, {"source": "0_5", "target": "1_5", "weight": 1},
+
+    // R1 Edges
+    {"source": "1_0", "target": "1_1", "weight": 1}, {"source": "1_1", "target": "1_2", "weight": 1},
+    {"source": "1_2", "target": "1_3", "weight": 1}, {"source": "1_3", "target": "2_3", "weight": 1},
+    {"source": "1_4", "target": "1_5", "weight": 1},
+
+    // R2 Edges
+    {"source": "2_0", "target": "3_0", "weight": 1}, {"source": "2_1", "target": "2_2", "weight": 1},
+    {"source": "2_2", "target": "2_3", "weight": 1}, {"source": "2_3", "target": "2_4", "weight": 1},
+    {"source": "2_4", "target": "2_5", "weight": 1}, {"source": "2_5", "target": "3_5", "weight": 1},
+
+    // R3 Edges
+    {"source": "3_0", "target": "3_1", "weight": 1}, {"source": "3_1", "target": "4_1", "weight": 1},
+    {"source": "3_2", "target": "4_2", "weight": 1}, {"source": "3_3", "target": "4_3", "weight": 1},
+    {"source": "3_4", "target": "4_4", "weight": 1},
+
+    // R4 Edges
+    {"source": "4_0", "target": "4_1", "weight": 1}, {"source": "4_0", "target": "5_0", "weight": 1},
+    {"source": "4_1", "target": "4_2", "weight": 1}, {"source": "4_3", "target": "4_4", "weight": 1},
+    {"source": "4_3", "target": "5_3", "weight": 1}, {"source": "4_4", "target": "4_5", "weight": 1},
+    {"source": "4_5", "target": "5_5", "weight": 1},
+
+    // R5 Edges (Horizontal)
+    {"source": "5_0", "target": "5_1", "weight": 1}, {"source": "5_1", "target": "5_2", "weight": 1},
+    {"source": "5_2", "target": "5_3", "weight": 1}, {"source": "5_3", "target": "5_4", "weight": 1},
+    {"source": "5_4", "target": "5_5", "weight": 1},
+
+    // R0/R1 Vertical Edges
+    {"source": "0_0", "target": "1_0", "weight": 1},
+    // R1/R2 Vertical Edges
+    {"source": "1_0", "target": "2_0", "weight": 1},
+    // R2/R3 Vertical Edges
+    {"source": "2_1", "target": "3_1", "weight": 1}, {"source": "2_2", "target": "3_2", "weight": 1},
+    {"source": "2_4", "target": "3_4", "weight": 1},
+    // R3/R4 Vertical Edges
+    {"source": "3_3", "target": "4_3", "weight": 1},
+    // R4/R5 Vertical Edges
+    {"source": "4_1", "target": "5_1", "weight": 1}, {"source": "4_2", "target": "5_2", "weight": 1}
+  ]
+}
