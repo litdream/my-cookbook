@@ -41,4 +41,5 @@ nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
 
 plt.title("Visualizing Dijkstra-ready Adjacency List")
 plt.axis('off')
+plt.savefig('graph2.png')
 plt.show()

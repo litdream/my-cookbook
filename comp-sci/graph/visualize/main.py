@@ -79,4 +79,5 @@ nx.draw_networkx_edge_labels(
 # Set the title and display the plot
 plt.title("JSON Graph Visualization (using NetworkX and Matplotlib)")
 plt.axis('off') # Turn off the Matplotlib axis frame
+plt.savefig('graph.png')
 plt.show()
