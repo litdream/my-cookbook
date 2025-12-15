@@ -26,7 +26,7 @@ print(f"Edges: {G.edges(data=True)}")
 # --- Visualization ---
 
 # Set layout
-pos = nx.spring_layout(G, seed=42)
+pos = nx.spring_layout(G)
 edge_labels = nx.get_edge_attributes(G, 'weight')
 
 # Draw Nodes
@@ -42,4 +42,4 @@ nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
 plt.title("Visualizing Dijkstra-ready Adjacency List")
 plt.axis('off')
 plt.savefig('graph2.png')
-plt.show()
+# plt.show()
