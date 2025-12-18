@@ -361,3 +361,7 @@ a.out
 
 *~
 *#
+
+# Java stuff
+*.class
+
