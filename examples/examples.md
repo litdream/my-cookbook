@@ -1,44 +1,59 @@
-# Example collection
+# Examples
 
-Usually, 'prototype/' directory contains code written by AI.
-- AI := ChatGPT, Gemini, Claude, etc...
-
-
-## Hello World
-
-Always the first.  [hello](hello/hello.md)
-
-
-## Bulls/Cows number guessing game.
-
-Number Guessing game, useful for brain puzzle.  [bull-cow](bull-cow/bull-cow.md)
-  - python
-  - rust
-  - c
-  - cpp
-
-## Word Jumble game
-
-Simple word game.  [word-jumble]()
-For now, I only have prototype written by Gemini.
-
-
-## Hangman
-
-Another traditional word game. [hangman]()
-
+This directory contains a collection of small programming examples and games.
 
 ## Battleship
 
-Challenging Battleship game.  [battleship]()
+A classic single-player Battleship game played on the command line against a computer opponent.
 
+- **Language:** Python
+- **Location:** `battleship/prototype/battleship.py`
 
-## HTTPS connection simulation
+## Bull-Cow
 
-Use only socket and crypto [https-handshake](https-handshake/https-handshake.md)
+A number guessing game, also known as "Baseball number guessing". The goal is to guess a secret number. For each guess, you get "bulls" for correct digits in the correct position, and "cows" for correct digits in the wrong position.
 
+- **Languages:** C, C++, Java, Python
+- **Location:** `bull-cow/`
+
+## Hangman
+
+The classic word guessing game.
+
+- **Languages:** C, C++, Python
+- **Location:** `hangman/`
+
+## Hello World
+
+The most basic "Hello, World!" program.
+
+- **Language:** C
+- **Location:** `hello/`
+
+## HTTPS Handshake
+
+A project to learn about the HTTPS handshake process.
+
+- **Language:** Python
+- **Location:** `https-handshake/prototype/`
 
 ## Matrix Screensaver
 
-A simulation of the matrix screensaver. [matrix-screensaver](matrix-screensaver/python/README.md)
+A screensaver that mimics the falling green code from "The Matrix".
 
+- **Language:** Python
+- **Location:** `matrix-screensaver/python/`
+
+## Sudoku Generator and Solver
+
+This project is intended to generate and solve Sudoku puzzles.
+
+- **Status:** The directory is currently empty.
+- **Location:** `sudoku-gen-sol/`
+
+## Word Jumble
+
+A game where you unscramble letters to find a hidden word.
+
+- **Language:** Python
+- **Location:** `word-jumble/prototype/`
