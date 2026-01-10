@@ -1,3 +1,8 @@
+// Emacs formatter is mixing TAB and space.  This is annoying.
+// google-java-formatter  use 2 spaces, which isn't my preference.
+// Using `astyle` in Arch:   `yay -S astyle`
+//
+
 import java.util.Scanner;
 
 class Player {
@@ -75,19 +80,24 @@ class Game {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Player p1 = new Player("O"), p2 = new Player("X");
+        Player p1 = new Player("O");
+        Player p2 = new Player("X");
         Board b = new Board();
         Game game = new Game(b, p1, p2);
 
-        Player current = p1;
+        Player current = null;
         int rounds = 0;
+        Scanner scanner = new Scanner(System.in);
 
         while (rounds < 9 && game.checkWin() == null) {
+            if ( rounds %2 == 0)
+                current = p1;
+            else
+                current = p2;
             b.printBoard();
+
             System.out.print("Player " + current.getMark() + " (row col): ");
             if (b.makeMove(scanner.nextInt(), scanner.nextInt(), current.getMark())) {
-                current = (current == p1) ? p2 : p1;
                 rounds++;
             } else {
                 System.out.println("Invalid move!");
@@ -96,7 +106,12 @@ public class Main {
 
         b.printBoard();
         Player win = game.checkWin();
-        System.out.println(win != null ? "Winner: " + win.getMark() : "Draw!");
+        if (win == null) {
+            System.out.println("Draw!");
+        } else {
+            System.out.println("Winner: " + win.getMark());
+        }
         scanner.close();
     }
 }
+
