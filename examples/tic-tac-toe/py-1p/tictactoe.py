@@ -54,6 +54,7 @@ class Board:
         if self.board[0][2] != '-' and self.board[0][2] == self.board[1][1] == self.board[2][0]:
             return self.board[0][2]
         return ""
+    
     def board_full(self):         
         flattened = [item for row in self.board for item in row]
         return '-' not in flattened
@@ -152,23 +153,12 @@ class AIPlayer(Player):
             return best
 
     def _evaluate(self, board):
-        # Rows and Columns
-        for i in range(3):
-            # Check Rows
-            if board.board[i][0] == board.board[i][1] == board.board[i][2] != '-':
-                return 10 if board.board[i][0] == self.symbol else -10
-            # Check Columns
-            if board.board[0][i] == board.board[1][i] == board.board[2][i] != '-':
-                return 10 if board.board[0][i] == self.symbol else -10
-
-        # Diagonals
-        if board.board[0][0] == board.board[1][1] == board.board[2][2] != '-':
-            return 10 if board.board[0][0] == self.symbol else -10
-            
-        if board.board[0][2] == board.board[1][1] == board.board[2][0] != '-':
-            return 10 if board.board[0][2] == self.symbol else -10
-
-        return 0                
+        if board.check_win() == "":
+            return 0
+        elif board.check_win() == self.symbol:
+            return 10
+        else:
+            return -10
 
 
 ## MAIN
