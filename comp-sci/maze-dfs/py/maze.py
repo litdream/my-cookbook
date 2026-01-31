@@ -62,7 +62,65 @@ class Maze:
                 self.punch_wall(current_cell, next_cell)
                 self.generate(next_cell)
 
-#    def print_maze(self):
+
+    def solve(self, start_coords=(0, 0), end_coords=None):
+        """Solve with DFS
+        NOTE: this solve() can only solve Perfect Maze:
+        Where Perfect maze:
+          - All nodes are connected to the root
+          - Loop is not made.
+          - There is only 1 (unique) path from root to the goal node.
+            - can be represented as Tree
+        """
+        if end_coords is None:
+            end_coords = (self.width - 1, self.height - 1)
+        
+        start_cell = self.get_cell(*start_coords)
+        end_cell = self.get_cell(*end_coords)
+        
+        path = []
+        visited = set()
+
+        def dfs(curr):
+            """depth first search for Maze
+            nested function to be convenient, and scoped.
+            """
+            if curr == end_cell:
+                path.append(curr)
+                return True
+            
+            visited.add(curr)
+            path.append(curr)
+
+            # Check neighbors and connectivity
+            # Order:
+            #  - 0: North,
+            #  - 1: West,
+            #  - 2: East,
+            #  - 3: South
+
+            neighbors = self.get_neighbors(curr)
+            north, west, east, south = 0,1,2,3
+            
+            n = neighbors[north]
+            if n and n not in visited and not curr.north_wall:
+                if dfs(n): return True
+            w = neighbors[west]
+            if w and w not in visited and not curr.west_wall:
+                if dfs(w): return True
+            e = neighbors[east]
+            if e and e not in visited and not e.west_wall:
+                if dfs(e): return True
+            s = neighbors[south]
+            if s and s not in visited and not s.north_wall:
+                if dfs(s): return True
+
+            path.pop()
+            return False
+
+        dfs(start_cell)
+        return path
+
     def __str__(self):
         rtn = []
         for y in range(self.height):
