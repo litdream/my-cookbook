@@ -281,6 +281,14 @@ __marimo__/
 .streamlit/secrets.toml
 
 
+## And, don't make uv for this.
+## uv is convenient, but code in this repo are usually one-time only.
+## No need to be permanent.
+
+uv.lock
+pyproject.toml
+.python-version
+.venv
 
 
 #-------------------
