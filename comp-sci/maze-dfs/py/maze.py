@@ -63,6 +63,48 @@ class Maze:
                 self.generate(next_cell)
 
 
+    def solve_trace(self, start_coords=(0, 0), end_coords=None):
+        if end_coords is None:
+            end_coords = (self.width - 1, self.height - 1)
+        
+        start_cell = self.get_cell(*start_coords)
+        end_cell = self.get_cell(*end_coords)
+        
+        path = []
+        visited = set()
+
+        def dfs(curr):
+            visited.add(curr)
+            path.append(curr)
+            # Yield the current path and current cell for animation
+            yield list(path), curr
+
+            if curr == end_cell:
+                return True
+
+            neighbors = self.get_neighbors(curr)
+            # N, W, E, S
+            checks = [
+                (neighbors[0], curr.north_wall),  # North
+                (neighbors[1], curr.west_wall),   # West
+                (neighbors[2], neighbors[2].west_wall if neighbors[2] else True), # East
+                (neighbors[3], neighbors[3].north_wall if neighbors[3] else True)  # South
+            ]
+
+            for neighbor, has_wall in checks:
+                if neighbor and neighbor not in visited and not has_wall:
+                    # Recursive yield from
+                    found = yield from dfs(neighbor)
+                    if found:
+                        return True
+                    # Backtracking: yield the state after returning from a dead end
+                    yield list(path), curr
+
+            path.pop()
+            return False
+
+        yield from dfs(start_cell)
+
     def solve(self, start_coords=(0, 0), end_coords=None):
         """Solve with DFS
         NOTE: this solve() can only solve Perfect Maze:

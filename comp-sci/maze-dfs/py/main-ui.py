@@ -3,8 +3,8 @@ import sys
 from maze import Maze
 
 CELL_SZ = 30
-WALL_THICK = 8
-WALL_SHADOW = 2
+WALL_THICK = 11
+WALL_SHADOW = 3
 
 # Colors
 COLOR_BG = (34, 139, 34)      # Forest green
@@ -12,9 +12,26 @@ COLOR_PATH = (74, 114, 232)   # Blue
 COLOR_WALL = (247, 211, 8)    # Gold
 COLOR_WALL_SHADOW = (156, 132, 0)  # Darker Gold
 COLOR_SOL  = (255, 255, 255)  # White  (Solution path)
+COLOR_HUMAN = (255, 100, 100) # Reddish for the human shape
 
 
-def draw_maze(screen, maze:Maze, solution_path):
+def draw_human(screen, x, y):
+    # Center of the cell
+    cx = x * CELL_SZ + CELL_SZ // 2 + WALL_THICK // 2
+    cy = y * CELL_SZ + CELL_SZ // 2 + WALL_THICK // 2
+    
+    # Head
+    pygame.draw.circle(screen, (255, 255, 255), (cx, cy - 5), 4)
+    # Body
+    pygame.draw.line(screen, COLOR_HUMAN, (cx, cy - 2), (cx, cy + 5), 3)
+    # Arms
+    pygame.draw.line(screen, COLOR_HUMAN, (cx - 5, cy), (cx + 5, cy), 2)
+    # Legs
+    pygame.draw.line(screen, COLOR_HUMAN, (cx, cy + 5), (cx - 4, cy + 10), 2)
+    pygame.draw.line(screen, COLOR_HUMAN, (cx, cy + 5), (cx + 4, cy + 10), 2)
+
+
+def draw_maze(screen, maze:Maze, solution_path, current_cell=None):
     screen.fill(COLOR_BG)
 
     #
@@ -70,6 +87,10 @@ def draw_maze(screen, maze:Maze, solution_path):
             y2 = c2.y * CELL_SZ + CELL_SZ // 2 + WALL_THICK // 2
             pygame.draw.line(screen, COLOR_SOL, (x1, y1), (x2, y2), 4)
 
+    # Current "Human" position
+    if current_cell:
+        draw_human(screen, current_cell.x, current_cell.y)
+
     # Final borders
     pygame.draw.rect(screen, COLOR_WALL, (0, 0, maze.width * CELL_SZ + WALL_THICK, WALL_THICK))
     pygame.draw.rect(screen, COLOR_WALL, (0, 0, WALL_THICK, maze.height * CELL_SZ + WALL_THICK))
@@ -98,7 +119,12 @@ def main():
     
     maze = Maze(width, height)
     maze.generate()
-    solution = maze.solve()
+    
+    trace_gen = maze.solve_trace()
+    current_path = []
+    current_cell = None
+    animating = True
+
 
     clock = pygame.time.Clock()
     while True:
@@ -110,10 +136,26 @@ def main():
                 if event.key == pygame.K_r:     # Regenerate
                     maze = Maze(width, height)
                     maze.generate()
-                    solution = maze.solve()
-        draw_maze(screen, maze, solution)
+                    trace_gen = maze.solve_trace()
+                    current_path = []
+                    current_cell = None
+                    animating = True
+                elif event.key == pygame.K_q:
+                    pygame.quit()
+                    sys.exit()
+                elif event.key == pygame.K_SPACE:
+                    animating = not animating
+                    
+        if animating:
+            try:
+                current_path, current_cell = next(trace_gen)
+            except StopIteration:
+                animating = False
+
+        draw_maze(screen, maze, current_path, current_cell)
         pygame.display.flip()
         clock.tick(30)
+        #clock.tick(15) # Slower for animation visibility
         
     
 if __name__ == '__main__':
