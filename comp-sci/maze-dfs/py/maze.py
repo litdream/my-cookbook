@@ -8,6 +8,10 @@ class MazeCell:
         self.west_wall = True
         self.visited = False
 
+    def __str__(self):
+        return f"({self.x},{self.y}), {self.visited}"
+
+    
 class Maze:
     def __init__(self, width, height):
         self.width = width
@@ -57,6 +61,7 @@ class Maze:
         valid_neighbors = [ n for n in neighbors if n is not None and \
                            not n.visited ]
         random.shuffle(valid_neighbors)
+        
         for next_cell in valid_neighbors:
             if not next_cell.visited:
                 self.punch_wall(current_cell, next_cell)
@@ -146,16 +151,16 @@ class Maze:
             
             n = neighbors[north]
             if n and n not in visited and not curr.north_wall:
-                if dfs(n): return True
+                return dfs(n)
             w = neighbors[west]
             if w and w not in visited and not curr.west_wall:
-                if dfs(w): return True
+                return dfs(w)
             e = neighbors[east]
             if e and e not in visited and not e.west_wall:
-                if dfs(e): return True
+                return dfs(e)
             s = neighbors[south]
             if s and s not in visited and not s.north_wall:
-                if dfs(s): return True
+                return dfs(s)
 
             path.pop()
             return False
